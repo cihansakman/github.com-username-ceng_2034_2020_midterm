@@ -1,0 +1,133 @@
+\documentclass[onecolumn]{article}
+%\usepackage{url}
+%\usepackage{algorithmic}
+\usepackage[a4paper]{geometry}
+\usepackage{datetime}
+\usepackage[margin=2em, font=small,labelfont=it]{caption}
+\usepackage{graphicx}
+\usepackage{mathpazo} % use palatino
+\usepackage[scaled]{helvet} % helvetica
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{subfigure}
+\usepackage{graphicx} %package to manage images
+\graphicspath{ {images/} }
+% Letterspacing macros
+\newcommand{\spacecaps}[1]{\textls[200]{\MakeUppercase{#1}}}
+\newcommand{\spacesc}[1]{\textls[50]{\textsc{\MakeLowercase{#1}}}}
+
+\title{\spacecaps{Assignment Report 1: Process and Thread Implementation}\\ \normalsize \spacesc{CENG2034, Operating Systems} }
+
+\author{Mehmet Cihan Sakman\\mehmetcihansakman@posta.mu.edu.tr\\github username: ctyp55}
+%\date{\today\\\currenttime}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+The purpose of this project is that understand how threads are process. This lab is crucial to see what are the benefits of using threads and how threads are processing.
+
+\section{Assignments}
+Following subsections explains how different tasks solved step by step.
+
+\subsection{Process ID of Threads (PID of Threads)}
+
+Using os.getpid() command from os library we get the process ID of each process to see whether different threads are using same process ID or not.
+
+\begin{figure}[h]
+\includegraphics[scale=0.6]{PID.png}
+\centering
+\end{figure}
+
+\subsection{If the running OS is linux; print loadavg}
+To ensure that the user is using Linux it checked by following codes in photo below. Using sys.platform command we get the information about which OS is using by user. If the user using linux we print the loadavg information with using os.getloadavg() command.
+
+\begin{figure}[h]
+\includegraphics[scale=0.6]{loadavg.png}
+\centering
+\end{figure}
+
+\subsection{Is there any waiting process?}
+At this stage we checked if there any other process which is waiting for running. If there is another process to wait for run we just exit the script. To understand that there is an waiting process or not we checked our load averages for 5 minutes and CPU core count. To figure it out we get the difference between CPU core count and load averages for 5 minutes, if it is less than 1 we just exit the script. To get CPU core count we used os.cpucount() command and to get load average for 5 minutes we just get the second element of os.getloadavg(). You can see the codes in below photo.
+
+\begin{figure}[h]
+\includegraphics[scale=0.45]{exit.png}
+\centering
+\end{figure}
+
+\subsection{Threads Processing}
+At this stage of the project we have five different URL to check whether these URLs are valid or not. To check it we send the URLs separately by using five threads. First of all we get the URL by using requests.get() command from requests library. After that we check the response code by using statuscode() command. If the URL's response status something like 2XX this code is valid otherwise not valid. You can see the codes in below photo.
+
+\begin{figure}[h]
+\includegraphics[scale=0.35]{final.png}
+\centering
+\end{figure}
+
+
+\section{Results}
+We will handle results step by step.
+
+\subsection{Process ID's}
+
+
+\begin{figure}[h]
+
+\begin{subfigure}{\textwidth}
+\includegraphics[width=0.9\linewidth, height=4cm]{multiprocess.png} 
+\caption{Multiprocessing}
+\label{fig:multiprocess}
+\end{subfigure}
+\begin{subfigure}{\textwidth}
+\includegraphics[width=0.9\linewidth, height=4cm]{multithreading.png}
+\caption{Multithreading}
+\label{fig:subim2}
+\end{subfigure}
+\end{figure}
+
+
+Result from assignment 2.1 we will compare Multithreading (Figure2) and Multiprocessing (Figure1). In Figure1 and Figure2 we can see the process ID's of these scripts.
+
+\subsection{Time Saving}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{normal time.png}
+    \caption{Normal Time}
+    \label{fig:normal time}
+     \centering
+    \includegraphics[width=0.5\textwidth]{multithread time.png}
+    \caption{Multithread Time}
+    \label{fig:multithread time}
+\end{figure}
+
+
+
+
+In Figure3: Normal process time is 11.8second, and in Figure4: Multithread processing time is 0.8second. This project clearly showed us that Multithread processing is much faster than normal processing. 
+
+
+\subsection{URL Response Code}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{responsecode.png}
+    \caption{Response Codes for URLs}
+    \label{fig:normal time}
+\end{figure}
+
+Another result from assignment 2.4 showing us that we can check any website whether it is available or not with checking their response code. If the response code like 2XX it means website is available otherwise it is not available. We can clearly see that in Figure5.
+
+
+\section{Conclusion}
+
+The purpose of the having this project was showing the positive effect of using threads. As we discuss before in Results section it is obvious that the Multithreading process is much faster than Normal process(without threading) in this project. If we check assignment 2.4 while we getting URL we are waiting for response from target site. At this time our threads starting to get another URL's response and it goes like that and we save our running time for this project.
+
+Result from Results3.1 showing that in Multithreading, threads are using same memory therefore their process ID are same. On the other hand in Multiprocessing each core uses their own memory and therefore their process ID are different.
+
+
+
+
+\end{document}
+
+
+
